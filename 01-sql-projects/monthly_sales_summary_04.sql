@@ -8,6 +8,3 @@ from dbo.customer_orders
 where order_status = 'Completed'
 group by DATEFROMPARTS(YEAR(order_date), MONTH(order_date), 1) 
 order by sales_month;
-
-
------------------------     THE END     -----------------------
