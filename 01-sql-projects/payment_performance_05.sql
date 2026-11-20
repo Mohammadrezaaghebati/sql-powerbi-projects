@@ -24,14 +24,27 @@ select
 		end
 	) as total_cancelled,
 
-	count (order_status) as total_orders,
+	count (*) as total_orders,
 	
-	(cast( SUM(
+	cast(round((cast( SUM(
 				case
-				when order_status = 'Completed' then 1
+					when order_status = 'Completed' then 1
 				else 0
 				end
-				)as decimal(10,2)) / count (order_status) * 100 ) as completion_rate
+				)as decimal(5,2)) / count (*) * 100 ),2)as decimal(5,2)) as completion_rate,
+
+	cast(round((cast( SUM(
+				case
+					when order_status = 'Cancelled' then 1
+				else 0
+				end
+				)as decimal(5,2)) / count (*) * 100 ),2)as decimal(5,2)) as cancellation_rate,
+
+	cast(round((cast( SUM(
+				case
+					when order_status = 'Returned' then 1
+				else 0
+				end
+				)as decimal(5,2)) / count (*) * 100 ),2)as decimal(5,2)) as returned_rate
 from dbo.customer_orders
 group by payment_method
--- ادامه دارد
