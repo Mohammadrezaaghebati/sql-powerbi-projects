@@ -1,6 +1,5 @@
 -- اصلاح باگ های جدول انجام شد
 
-
 CREATE TABLE customer_orders (
     order_id INT PRIMARY KEY,
     customer_id INT,
